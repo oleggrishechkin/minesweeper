@@ -1,0 +1,79 @@
+{
+  "name": "minesweeper",
+  "version": "0.1.0",
+  "description": "Simple implementation of Classic Minesweeper game  with React",
+  "homepage": "https://oleggrishechkin.github.io/minesweeper",
+  "license": "MIT",
+  "author": {
+    "name": "Oleg Grishechkin",
+    "email": "oleggrishechkin@gmail.com",
+    "url": "https://github.com/oleggrishechkin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oleggrishechkin/minesweeper"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "react-scripts build && serve build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/styled-components": "^5.1.9",
+    "babel-plugin-styled-components": "^1.12.0",
+    "configs-og": "^2.0.16",
+    "gh-pages": "^3.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "react-tagged-state": "^0.1.43",
+    "serve": "^11.3.2",
+    "styled-components": "^5.2.3",
+    "typescript": "^4.2.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "configs-og/babel.config.js"
+    ],
+    "plugins": [
+      "babel-plugin-styled-components"
+    ]
+  },
+  "prettier": "configs-og/prettier.config.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": [
+      "eslint --quiet"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/configs-og/.eslintrc.js"
+    ]
+  }
+}
