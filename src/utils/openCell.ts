@@ -2,17 +2,18 @@ import { BoardState, Cell } from '../states/boardState';
 import getBombNearCount from './getBombNearCount';
 
 const openCell = (boardCopy: BoardState, targetCell: Cell): BoardState => {
-    const itemsToOpen = [targetCell];
-    let currentCell;
+    const itemsToOpen = new Set([targetCell]);
     let cell;
     let offsetX;
     let offsetY;
 
-    while (itemsToOpen.length) {
-        currentCell = itemsToOpen.pop();
+    if (targetCell.isOpened || targetCell.isFlag) {
+        return boardCopy;
+    }
 
+    itemsToOpen.forEach((currentCell) => {
         if (!currentCell || currentCell.isOpened || currentCell.isFlag) {
-            continue;
+            return;
         }
 
         currentCell = boardCopy.board[currentCell.row][currentCell.col] = {
@@ -23,19 +24,19 @@ const openCell = (boardCopy: BoardState, targetCell: Cell): BoardState => {
         boardCopy.cells -= 1;
 
         if (currentCell.bombCount) {
-            continue;
+            return;
         }
 
         for (offsetX = -1; offsetX <= 1; ++offsetX) {
             for (offsetY = -1; offsetY <= 1; ++offsetY) {
                 cell = boardCopy.board[offsetY + currentCell.row]?.[offsetX + currentCell.col];
 
-                if (cell && itemsToOpen.indexOf(cell) === -1 && !cell.isOpened && !cell.isFlag) {
-                    itemsToOpen.push(cell);
+                if (cell && !cell.isOpened && !cell.isFlag) {
+                    itemsToOpen.add(cell);
                 }
             }
         }
-    }
+    });
 
     return boardCopy;
 };
