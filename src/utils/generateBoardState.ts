@@ -1,5 +1,4 @@
 import { BoardState } from '../states/boardState';
-import getRandomPoint from './getRandomPoint';
 
 const generateBoardState = (
     width: number,
@@ -12,11 +11,16 @@ const generateBoardState = (
     let minesCount = 0;
     let row = 0;
     let col;
+    const possibleBombPoints = [];
 
     for (; row < height; ++row) {
         board[row] = [];
 
         for (col = 0; col < width; ++col) {
+            if (row !== excludeRow || excludeCol !== col) {
+                possibleBombPoints.push([row, col]);
+            }
+
             board[row][col] = {
                 id: `[${row}][${col}]`,
                 row,
@@ -30,12 +34,10 @@ const generateBoardState = (
     }
 
     while (minesCount < bombCount) {
-        [row, col] = getRandomPoint(width, height);
+        const [point] = possibleBombPoints.splice(Math.floor(Math.random() * possibleBombPoints.length), 1);
 
-        if (!board[row][col].isBomb && (row !== excludeRow || excludeCol !== col)) {
-            board[row][col].isBomb = true;
-            ++minesCount;
-        }
+        board[point[0]][point[1]].isBomb = true;
+        ++minesCount;
     }
 
     return {

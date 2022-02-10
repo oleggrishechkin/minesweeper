@@ -7,13 +7,10 @@ const getOpenNearStatus = (board: BoardState | null, targetCell: Cell): -1 | 1 |
 
     let flagsCount = 0;
     let isUnflagBombNear = false;
-    let offsetX = -1;
-    let offsetY;
-    let cell;
 
-    for (; offsetX <= 1; ++offsetX) {
-        for (offsetY = -1; offsetY <= 1; ++offsetY) {
-            cell = board.board[offsetY + targetCell.row]?.[offsetX + targetCell.col];
+    for (let offsetX = -1; offsetX <= 1; offsetX++) {
+        for (let offsetY = -1; offsetY <= 1; offsetY++) {
+            const cell = board.board[offsetY + targetCell.row]?.[offsetX + targetCell.col];
 
             if (cell?.isFlag) {
                 flagsCount++;
