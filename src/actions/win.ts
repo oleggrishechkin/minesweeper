@@ -1,4 +1,4 @@
-import endTimeState from '../states/endTime';
+import endTimeState from '../states/endTimeState';
 import gameOverState from '../states/gameOverState';
 import boardState from '../states/boardState';
 import flagBombs from '../utils/flagBombs';

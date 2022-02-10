@@ -1,6 +1,6 @@
 import boardState from '../states/boardState';
-import startTimeState from '../states/startTime';
-import endTimeState from '../states/endTime';
+import startTimeState from '../states/startTimeState';
+import endTimeState from '../states/endTimeState';
 import gameOverState from '../states/gameOverState';
 
 const clear = (): void => {

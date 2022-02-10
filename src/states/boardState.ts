@@ -1,4 +1,4 @@
-import { createTagged } from 'react-tagged-state';
+import { createSignal } from 'react-tagged-state';
 
 export interface Cell {
     id: string;
@@ -16,6 +16,6 @@ export interface BoardState {
     cells: number;
 }
 
-const boardState = createTagged<BoardState | null>(null);
+const boardState = createSignal<BoardState | null>(null);
 
 export default boardState;

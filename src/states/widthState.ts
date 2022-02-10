@@ -1,5 +1,5 @@
-import { createTagged } from 'react-tagged-state';
+import { createSignal } from 'react-tagged-state';
 
-const widthState = createTagged<number>(30);
+const widthState = createSignal<number>(30);
 
 export default widthState;

@@ -1,5 +1,5 @@
-import { createTagged } from 'react-tagged-state';
+import { createSignal } from 'react-tagged-state';
 
-const bombCountState = createTagged<number>(99);
+const bombCountState = createSignal<number>(99);
 
 export default bombCountState;

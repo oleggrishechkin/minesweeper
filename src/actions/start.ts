@@ -3,7 +3,7 @@ import generateBoardState from '../utils/generateBoardState';
 import widthState from '../states/widthState';
 import heightState from '../states/heightState';
 import bombCountState from '../states/bombCountState';
-import startTimeState from '../states/startTime';
+import startTimeState from '../states/startTimeState';
 import open from './open';
 
 const start = (row: number, col: number): void => {

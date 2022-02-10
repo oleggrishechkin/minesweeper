@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useReducer } from 'react';
 import { useTagged } from 'react-tagged-state';
-import endTimeState from '../states/endTime';
-import startTimeState from '../states/startTime';
+import endTimeState from '../states/endTimeState';
+import startTimeState from '../states/startTimeState';
 
 const Timer = (): ReactElement => {
     const [, forceUpdate] = useReducer((s) => s + 1, 0);

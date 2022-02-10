@@ -9,6 +9,7 @@ const StyledSettings = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    flex-wrap: wrap;
 `;
 
 const Settings = (): ReactElement => (

@@ -38,7 +38,6 @@ const Board = (): ReactElement => {
     const gameOver = useTagged<GameOver>(gameOverState);
     const width = useTagged<number>(widthState);
     const height = useTagged<number>(heightState);
-    console.log(board);
     const boardBoard = board ? board.board : generateBoardState(width, height, 0).board;
     const rows = boardBoard.length;
     const cols = boardBoard[0].length;
