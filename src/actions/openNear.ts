@@ -1,26 +1,26 @@
-import getOpenNearStatus from '../utils/getOpenNearStatus';
-import boardState, { Cell } from '../states/boardState';
-import openNearCells from '../utils/openNearCells';
-import copyBoard from '../utils/copyBoard';
+import { Cell } from '../states/boardState';
 import startTimeState from '../states/startTimeState';
+import cellsState from '../states/cellsState';
+import getOpenNearStatus from '../selectors/getOpenNearStatus';
+import openNearCells from './openNearCells';
 import win from './win';
 import lose from './lose';
 
-const openNear = (cell: Cell): void => {
+const openNear = (cell: Cell) => {
     if (!startTimeState()) {
         return;
     }
 
-    switch (getOpenNearStatus(boardState(), cell)) {
+    switch (getOpenNearStatus(cell)) {
         case -1: {
             lose();
 
             return;
         }
         case 1: {
-            boardState((board) => board && openNearCells(copyBoard(board), cell));
+            openNearCells(cell);
 
-            if (boardState()?.cells === 0) {
+            if (cellsState() === 0) {
                 win();
             }
         }

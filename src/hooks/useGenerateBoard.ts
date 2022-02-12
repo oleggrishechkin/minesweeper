@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { createEffect } from 'react-tagged-state';
-import clear from '../actions/clear';
+import init from '../actions/init';
 
 const useGenerateBoard = () => {
     useEffect(
         () =>
             createEffect(() => {
-                clear();
+                init();
             }),
         []
     );

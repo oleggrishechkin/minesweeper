@@ -1,6 +1,8 @@
-import { BoardState, Cell } from '../states/boardState';
+import boardState, { Cell } from '../states/boardState';
 
-const getOpenNearStatus = (board: BoardState | null, targetCell: Cell): -1 | 1 | 0 => {
+const getOpenNearStatus = (targetCell: Cell): -1 | 1 | 0 => {
+    const board = boardState();
+
     if (!board) {
         return 0;
     }
@@ -10,7 +12,7 @@ const getOpenNearStatus = (board: BoardState | null, targetCell: Cell): -1 | 1 |
 
     for (let offsetX = -1; offsetX <= 1; offsetX++) {
         for (let offsetY = -1; offsetY <= 1; offsetY++) {
-            const cell = board.board[offsetY + targetCell.row]?.[offsetX + targetCell.col];
+            const cell = board[offsetY + targetCell.row]?.[offsetX + targetCell.col];
 
             if (cell?.isFlag) {
                 flagsCount++;

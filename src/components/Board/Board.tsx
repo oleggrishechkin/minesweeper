@@ -19,15 +19,17 @@ const Board = (): ReactElement => {
         return <Fragment />;
     }
 
-    const rows = board.board.length;
-    const cols = board.board[0].length;
+    const rows = board.length;
+    const cols = board[0].length;
     const width = cols * CELL_SIZE;
     const height = rows * CELL_SIZE;
     const cells = [];
 
-    for (let row = renderedCells.fromRow; row < renderedCells.toRow && row < board.board.length; row++) {
-        for (let col = renderedCells.fromCol; col < renderedCells.toCol && col < board.board[0].length; col++) {
-            cells.push(<Cell key={board.board[row][col].id} cell={board.board[row][col]} />);
+    for (let row = renderedCells.fromRow; row < renderedCells.toRow && row < board.length; row++) {
+        for (let col = renderedCells.fromCol; col < renderedCells.toCol && col < board[0].length; col++) {
+            const cell = board[row][col];
+
+            cells.push(<Cell key={cell.id} cell={cell} />);
         }
     }
 
@@ -40,8 +42,9 @@ const Board = (): ReactElement => {
                     height,
                     ...(gameOver ? { pointerEvents: 'none' } : {})
                 }}
-            />
-            {cells}
+            >
+                {cells}
+            </div>
         </section>
     );
 };

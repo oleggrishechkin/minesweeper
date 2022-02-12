@@ -1,15 +1,15 @@
-import boardState, { Cell } from '../states/boardState';
-import flagCell from '../utils/flagCell';
-import copyBoard from '../utils/copyBoard';
+import { Cell } from '../states/boardState';
 import startTimeState from '../states/startTimeState';
+import flagsState from '../states/flagsState';
+import flagCell from './flagCell';
 
-const flag = (cell: Cell): void => {
+const flag = (cell: Cell) => {
     if (!startTimeState()) {
         return;
     }
 
-    if (!cell.isOpened && (cell.isFlag || (boardState()?.flags || 0) > 0)) {
-        boardState((board) => board && flagCell(copyBoard(board), cell));
+    if (!cell.isOpened && (cell.isFlag || flagsState() > 0)) {
+        flagCell(cell);
     }
 };
 

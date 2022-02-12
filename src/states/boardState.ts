@@ -4,18 +4,12 @@ export interface Cell {
     id: string;
     row: number;
     col: number;
-    bombCount: number | null;
+    bombCount: number;
     isBomb: boolean;
     isFlag: boolean;
     isOpened: boolean;
 }
 
-export interface BoardState {
-    board: Array<Array<Cell>>;
-    flags: number;
-    cells: number;
-}
-
-const boardState = createSignal<BoardState | null>(null);
+const boardState = createSignal<Array<Array<Cell>> | null>(null);
 
 export default boardState;

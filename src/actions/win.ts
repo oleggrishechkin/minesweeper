@@ -1,13 +1,16 @@
 import endTimeState from '../states/endTimeState';
 import gameOverState from '../states/gameOverState';
-import boardState from '../states/boardState';
-import flagBombs from '../utils/flagBombs';
-import copyBoard from '../utils/copyBoard';
+import startTimeState from '../states/startTimeState';
+import flagBombs from './flagBombs';
 
-const win = (): void => {
+const win = () => {
+    if (!startTimeState()) {
+        return;
+    }
+
     endTimeState(Date.now());
     gameOverState('win');
-    boardState((board) => board && flagBombs(copyBoard(board)));
+    flagBombs();
 };
 
 export default win;

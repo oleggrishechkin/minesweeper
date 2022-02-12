@@ -1,13 +1,16 @@
 import endTimeState from '../states/endTimeState';
 import gameOverState from '../states/gameOverState';
-import boardState from '../states/boardState';
-import openBombs from '../utils/openBombs';
-import copyBoard from '../utils/copyBoard';
+import startTimeState from '../states/startTimeState';
+import openBombs from './openBombs';
 
-const lose = (): void => {
+const lose = () => {
+    if (!startTimeState()) {
+        return;
+    }
+
     endTimeState(Date.now());
     gameOverState('lose');
-    boardState((board) => board && openBombs(copyBoard(board)));
+    openBombs();
 };
 
 export default lose;

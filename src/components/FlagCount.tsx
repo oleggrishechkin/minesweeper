@@ -1,13 +1,15 @@
 import { useTagged } from 'react-tagged-state';
 import { ReactElement } from 'react';
 import bombCountState from '../states/bombCountState';
-import boardState from '../states/boardState';
+import flagsState from '../states/flagsState';
+import startTimeState from '../states/startTimeState';
 
 const FlagCount = (): ReactElement => {
     const bombCount = useTagged(bombCountState);
-    const flags = useTagged(() => boardState()?.flags);
+    const flags = useTagged(flagsState);
+    const startTime = useTagged(startTimeState);
 
-    return <span>Flags:{typeof flags === 'number' ? flags : bombCount}</span>;
+    return <span>Flags:{startTime ? flags : bombCount}</span>;
 };
 
 export default FlagCount;

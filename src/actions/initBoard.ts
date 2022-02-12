@@ -1,13 +1,15 @@
-import { BoardState } from '../states/boardState';
+import boardState, { Cell } from '../states/boardState';
+import flagsState from '../states/flagsState';
+import cellsState from '../states/cellsState';
+import widthState from '../states/widthState';
+import bombCountState from '../states/bombCountState';
+import heightState from '../states/heightState';
 
-const generateBoardState = (
-    width: number,
-    height: number,
-    bombCount: number,
-    excludeRow?: number,
-    excludeCol?: number
-): BoardState => {
-    const board: BoardState['board'] = [];
+const initBoard = (excludeRow?: number, excludeCol?: number) => {
+    const width = widthState();
+    const height = heightState();
+    const bombCount = bombCountState();
+    const board: Array<Array<Cell>> = [];
     let minesCount = 0;
     let row = 0;
     let col;
@@ -25,7 +27,7 @@ const generateBoardState = (
                 id: `[${row}][${col}]`,
                 row,
                 col,
-                bombCount: null,
+                bombCount: 0,
                 isBomb: false,
                 isFlag: false,
                 isOpened: false
@@ -40,11 +42,9 @@ const generateBoardState = (
         ++minesCount;
     }
 
-    return {
-        board,
-        flags: bombCount,
-        cells: width * height - bombCount
-    };
+    boardState(board);
+    flagsState(bombCount);
+    cellsState(width * height - bombCount);
 };
 
-export default generateBoardState;
+export default initBoard;

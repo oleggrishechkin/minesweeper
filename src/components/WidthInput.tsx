@@ -1,9 +1,6 @@
 import { useTagged } from 'react-tagged-state';
 import { ReactElement } from 'react';
 import widthState from '../states/widthState';
-import minMax from '../utils/minMax';
-
-const MAX = 819;
 
 const WidthInput = (): ReactElement => {
     const width = useTagged(widthState);
@@ -15,9 +12,8 @@ const WidthInput = (): ReactElement => {
                 key={width}
                 defaultValue={width}
                 type="number"
-                onBlur={(event: { target: HTMLInputElement }) => widthState(minMax(8, +(event.target.value || 0), MAX))}
+                onBlur={(event: { target: HTMLInputElement }) => widthState(Math.max(8, +(event.target.value || 0)))}
                 min={8}
-                max={MAX}
             />
         </label>
     );
