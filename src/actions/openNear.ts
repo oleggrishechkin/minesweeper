@@ -2,10 +2,15 @@ import getOpenNearStatus from '../utils/getOpenNearStatus';
 import boardState, { Cell } from '../states/boardState';
 import openNearCells from '../utils/openNearCells';
 import copyBoard from '../utils/copyBoard';
+import startTimeState from '../states/startTimeState';
 import win from './win';
 import lose from './lose';
 
 const openNear = (cell: Cell): void => {
+    if (!startTimeState()) {
+        return;
+    }
+
     switch (getOpenNearStatus(boardState(), cell)) {
         case -1: {
             lose();

@@ -1,99 +1,48 @@
-import { ReactElement, MouseEvent, useRef } from 'react';
+import { Fragment, ReactElement } from 'react';
 import { useTagged } from 'react-tagged-state';
-import styled from 'styled-components';
-import open from '../../actions/open';
-import openNear from '../../actions/openNear';
-import flag from '../../actions/flag';
-import start from '../../actions/start';
 import boardState from '../../states/boardState';
-import gameOverState, { GameOver } from '../../states/gameOverState';
-import widthState from '../../states/widthState';
-import heightState from '../../states/heightState';
-import generateBoardState from '../../utils/generateBoardState';
-import Cell from './Cell';
-import { CELL_SIZE, BOARD_ID } from './constants';
-import VirtualBoard from './VirtualBoard';
-
-const StyledBoard = styled.section`
-    display: flex;
-    overflow: auto;
-    max-width: 100%;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-`;
-
-const getEventPoint = (event: MouseEvent) => {
-    const rect = document.getElementById(BOARD_ID)?.getBoundingClientRect();
-
-    if (!rect) {
-        return [0, 0];
-    }
-
-    return [Math.floor((event.clientY - rect.top) / CELL_SIZE), Math.floor((event.clientX - rect.left) / CELL_SIZE)];
-};
+import gameOverState from '../../states/gameOverState';
+import useVirtualGrid from '../../hooks/useVirtualGrid';
+import Cell from '../Cell/Cell';
+import { CELL_SIZE } from '../constants';
+import useGenerateBoard from '../../hooks/useGenerateBoard';
+import styles from './Board.module.css';
 
 const Board = (): ReactElement => {
-    const ref = useRef<HTMLDivElement | null>(null);
     const board = useTagged(boardState);
-    const gameOver = useTagged<GameOver>(gameOverState);
-    const width = useTagged<number>(widthState);
-    const height = useTagged<number>(heightState);
-    const boardBoard = board ? board.board : generateBoardState(width, height, 0).board;
-    const rows = boardBoard.length;
-    const cols = boardBoard[0].length;
-    const boardWidth = cols * CELL_SIZE;
-    const boardHeight = rows * CELL_SIZE;
+    const gameOver = useTagged(gameOverState);
+    const [parentRef, renderedCells] = useVirtualGrid({ width: CELL_SIZE, height: CELL_SIZE, overscan: 5 });
+
+    useGenerateBoard();
+
+    if (!board) {
+        return <Fragment />;
+    }
+
+    const rows = board.board.length;
+    const cols = board.board[0].length;
+    const width = cols * CELL_SIZE;
+    const height = rows * CELL_SIZE;
+    const cells = [];
+
+    for (let row = renderedCells.fromRow; row < renderedCells.toRow && row < board.board.length; row++) {
+        for (let col = renderedCells.fromCol; col < renderedCells.toCol && col < board.board[0].length; col++) {
+            cells.push(<Cell key={board.board[row][col].id} cell={board.board[row][col]} />);
+        }
+    }
 
     return (
-        <StyledBoard ref={ref}>
-            <canvas
-                id={BOARD_ID}
+        <section ref={parentRef} className={styles.board}>
+            <div
+                className={styles.innerBoard}
                 style={{
-                    width: boardWidth,
-                    height: boardHeight,
-                    userSelect: 'none',
-                    cursor: 'pointer',
-                    pointerEvents: gameOver ? 'none' : undefined
+                    width,
+                    height,
+                    ...(gameOver ? { pointerEvents: 'none' } : {})
                 }}
-                data-is-over={!!gameOver}
-                width={boardWidth}
-                height={boardHeight}
-                onClick={(event) => {
-                    const [row, col] = getEventPoint(event);
-
-                    if (board) {
-                        open(boardBoard[row][col]);
-
-                        return;
-                    }
-
-                    start(row, col);
-                }}
-                onDoubleClick={
-                    board
-                        ? (event: MouseEvent) => {
-                              const [row, col] = getEventPoint(event);
-
-                              openNear(boardBoard[row][col]);
-                          }
-                        : undefined
-                }
-                onContextMenu={
-                    board
-                        ? (event: MouseEvent) => {
-                              event.preventDefault();
-
-                              const [row, col] = getEventPoint(event);
-
-                              flag(boardBoard[row][col]);
-                          }
-                        : undefined
-                }
             />
-            <VirtualBoard parentRef={ref} board={boardBoard}>
-                {({ cell }) => <Cell key={cell.id} cell={cell} />}
-            </VirtualBoard>
-        </StyledBoard>
+            {cells}
+        </section>
     );
 };
 

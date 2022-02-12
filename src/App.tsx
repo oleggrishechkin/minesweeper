@@ -1,25 +1,15 @@
-import styled from 'styled-components';
 import { ReactElement } from 'react';
 import Board from './components/Board/Board';
-import Settings from './components/Settings';
-import Statistics from './components/Statistics';
-
-const StyledApp = styled.main`
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    height: calc(100vh - 20px);
-    padding-top: 20px;
-    width: calc(100vw - 40px);
-    align-items: center;
-`;
+import Settings from './components/Settings/Settings';
+import Statistics from './components/Statistics/Statistics';
+import styles from './App.module.css';
 
 const App = (): ReactElement => (
-    <StyledApp>
+    <main className={styles.app}>
         <Settings />
         <Statistics />
         <Board />
-    </StyledApp>
+    </main>
 );
 
 export default App;

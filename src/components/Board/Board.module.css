@@ -1,0 +1,10 @@
+.board {
+    display: flex;
+    overflow: auto;
+    max-width: 100%;
+    will-change: transform;
+}
+
+.innerBoard {
+    position: relative;
+}

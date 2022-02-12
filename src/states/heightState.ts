@@ -1,5 +1,5 @@
 import { createSignal } from 'react-tagged-state';
 
-const heightState = createSignal<number>(16);
+const heightState = createSignal(16);
 
 export default heightState;
