@@ -1,4 +1,4 @@
-import { mutated } from 'react-tagged-state';
+import { mut } from 'react-mut';
 import boardState from '../states/boardState';
 
 const openBombs = () => {
@@ -16,7 +16,7 @@ const openBombs = () => {
             const cell = board[row][col];
             if (cell.isBomb) {
                 cell.isOpened = true;
-                mutated(cell);
+                mut(cell);
             }
         }
     }

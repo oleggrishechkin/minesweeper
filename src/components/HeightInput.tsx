@@ -1,9 +1,9 @@
-import { useTagged } from 'react-tagged-state';
+import { useSignal } from 'react-tagged-state';
 import { ReactElement } from 'react';
 import heightState from '../states/heightState';
 
 const HeightInput = (): ReactElement => {
-    const height = useTagged(heightState);
+    const height = useSignal(heightState);
 
     return (
         <label>

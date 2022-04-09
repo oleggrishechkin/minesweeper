@@ -1,4 +1,4 @@
-import { mutated } from 'react-tagged-state';
+import { mut } from 'react-mut';
 import boardState, { Cell } from '../states/boardState';
 import cellsState from '../states/cellsState';
 import getBombNearCount from '../selectors/getBombNearCount';
@@ -15,7 +15,7 @@ const openCell = (targetCell?: Cell) => {
     itemsToOpen.forEach((currentCell) => {
         currentCell.isOpened = true;
         currentCell.bombCount = getBombNearCount(currentCell);
-        mutated(currentCell);
+        mut(currentCell);
         cellsState((cells) => cells - 1);
 
         if (currentCell.bombCount) {

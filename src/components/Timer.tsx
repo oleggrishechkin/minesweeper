@@ -1,12 +1,12 @@
 import { ReactElement, useEffect, useReducer } from 'react';
-import { useTagged } from 'react-tagged-state';
+import { useSignal } from 'react-tagged-state';
 import endTimeState from '../states/endTimeState';
 import startTimeState from '../states/startTimeState';
 
 const Timer = (): ReactElement => {
     const [, forceUpdate] = useReducer((s) => s + 1, 0);
-    const startTime = useTagged(startTimeState);
-    const endTime = useTagged(endTimeState);
+    const startTime = useSignal(startTimeState);
+    const endTime = useSignal(endTimeState);
 
     useEffect(() => {
         let intervalId: any;

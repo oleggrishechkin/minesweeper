@@ -1,5 +1,5 @@
 import { Fragment, ReactElement } from 'react';
-import { useTagged } from 'react-tagged-state';
+import { useSignal } from 'react-tagged-state';
 import boardState from '../../states/boardState';
 import gameOverState from '../../states/gameOverState';
 import useVirtualGrid from '../../hooks/useVirtualGrid';
@@ -9,8 +9,8 @@ import useGenerateBoard from '../../hooks/useGenerateBoard';
 import styles from './Board.module.css';
 
 const Board = (): ReactElement => {
-    const board = useTagged(boardState);
-    const gameOver = useTagged(gameOverState);
+    const board = useSignal(boardState);
+    const gameOver = useSignal(gameOverState);
     const [parentRef, renderedCells] = useVirtualGrid({ width: CELL_SIZE, height: CELL_SIZE, overscan: 5 });
 
     useGenerateBoard();

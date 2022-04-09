@@ -1,5 +1,5 @@
 import { MouseEvent, ReactElement } from 'react';
-import { useTagged } from 'react-tagged-state';
+import { useMut } from 'react-mut';
 import { Cell as CellInterface } from '../../states/boardState';
 import open from '../../actions/open';
 import openNear from '../../actions/openNear';
@@ -28,7 +28,7 @@ const getCellContent = (cell: CellInterface) => {
 };
 
 const Cell = ({ cell }: { cell: CellInterface }): ReactElement => {
-    useTagged(cell);
+    useMut(cell);
 
     return (
         <div
@@ -41,7 +41,8 @@ const Cell = ({ cell }: { cell: CellInterface }): ReactElement => {
                 background: cell.isOpened ? 'aliceblue' : 'lightgray',
                 color: CELL_COLOR[cell.bombCount || 0],
                 ...(cell.row === 0 ? { borderTop: '1px solid black' } : {}),
-                ...(cell.col === 0 ? { borderLeft: '1px solid black' } : {})
+                ...(cell.col === 0 ? { borderLeft: '1px solid black' } : {}),
+                ...(cell.isOpened ? { pointerEvents: 'none' } : {})
             }}
             onClick={() => {
                 open(cell);

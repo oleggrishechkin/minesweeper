@@ -1,13 +1,13 @@
-import { useTagged } from 'react-tagged-state';
+import { useSignal } from 'react-tagged-state';
 import { ReactElement } from 'react';
 import bombCountState from '../states/bombCountState';
 import widthState from '../states/widthState';
 import heightState from '../states/heightState';
 
 const BombCountInput = (): ReactElement => {
-    const bombCount = useTagged(bombCountState);
-    const width = useTagged(widthState);
-    const height = useTagged(heightState);
+    const bombCount = useSignal(bombCountState);
+    const width = useSignal(widthState);
+    const height = useSignal(heightState);
 
     return (
         <label>

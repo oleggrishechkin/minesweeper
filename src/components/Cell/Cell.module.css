@@ -6,4 +6,13 @@
     align-items: center;
     justify-content: center;
     user-select: none;
+    cursor: pointer;
+}
+
+.cell:hover {
+    opacity: 0.7;
+}
+
+.cell:active {
+    opacity: 0.4;
 }

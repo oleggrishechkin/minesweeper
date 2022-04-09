@@ -1,15 +1,6 @@
-import { useEffect } from 'react';
-import { createEffect } from 'react-tagged-state';
+import { useSignalEffect } from 'react-tagged-state';
 import init from '../actions/init';
 
-const useGenerateBoard = () => {
-    useEffect(
-        () =>
-            createEffect(() => {
-                init();
-            }),
-        []
-    );
-};
+const useGenerateBoard = () => useSignalEffect(init, []);
 
 export default useGenerateBoard;

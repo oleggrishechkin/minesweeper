@@ -1,9 +1,9 @@
-import { useTagged } from 'react-tagged-state';
+import { useSignal } from 'react-tagged-state';
 import { ReactElement } from 'react';
 import widthState from '../states/widthState';
 
 const WidthInput = (): ReactElement => {
-    const width = useTagged(widthState);
+    const width = useSignal(widthState);
 
     return (
         <label>
